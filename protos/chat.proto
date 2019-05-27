@@ -1,0 +1,53 @@
+syntax = "proto3"; //Specify proto3 version.
+ 
+package example; //Optional: unique package name.
+ 
+service Chat { //Service class to be used by the clients
+    // rpc login (Username) returns (LoginSuccess){}
+    // rpc join (ChannelName) returns (IsSuccess){}
+    // rpc leave (ChannelName) returns (IsSuccess){}
+    // rpc sendMessage (Message) returns (IsSuccess) {}
+    // rpc broadcastMessage (BroadcastMsg) returns (IsSuccess) {}
+    // rpc getMessages (Username) returns (Messages) {}
+    rpc join(stream Message) returns (stream Message){}
+    rpc send(Message) returns (Message){}
+}
+ 
+// message Username {
+//     string username = 1;
+// }
+
+// message LoginSuccess{
+//     bool success = 1;
+//     string username = 2;
+// }
+
+// message ChannelName {
+//     string username = 1;
+//     string channel = 2;
+// }
+
+// message IsSuccess {
+//     bool success = 1;
+// }
+
+// message Message {
+//     string username = 1;
+//     string channel = 2;
+//     string msg = 3;
+// }
+
+// message Messages {
+//     bool success = 1;
+//     repeated string messages = 2;
+// }
+
+// message BroadcastMsg {
+//     string username = 1;
+//     string msg = 2;
+// }
+
+message Message { //Information that will be passed between client and service
+    string user = 1;
+    string text = 2;
+}
